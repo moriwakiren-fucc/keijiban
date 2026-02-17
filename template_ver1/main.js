@@ -1,4 +1,4 @@
-const GAS_URL = "ここにGASのWebアプリURL";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbygMWL_WIhglJ_PnzNYVq0_NIeYOw9FJEmaMojroWWjkc7EqmVtmmVYUK0pTvZHU76w/exec";
 
 async function submitPost() {
   const title = titleEl().value;
