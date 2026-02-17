@@ -1,5 +1,12 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbygMWL_WIhglJ_PnzNYVq0_NIeYOw9FJEmaMojroWWjkc7EqmVtmmVYUK0pTvZHU76w/exec";
+async function loadPosts() {
+  const res = await fetch(GAS_URL);
+  const text = await res.text();
 
+  document.getElementById("bbs").innerHTML =
+    "<pre>" + text + "</pre>";
+}
+/*
 async function submitPost() {
   const title = titleEl().value;
   const name = nameEl().value || "名無し";
@@ -57,3 +64,4 @@ const commentEl = () => document.getElementById("comment");
 const statusEl = () => document.getElementById("status");
 
 loadPosts();
+*/
