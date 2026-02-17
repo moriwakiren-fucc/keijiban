@@ -44,24 +44,36 @@ async function loadPosts() {
 
 /* ★ 投稿処理（新規追加） */
 async function submitPost() {
+  const title = document.getElementById("title").value;
+  const name = document.getElementById("name").value || "名無し";
+  const comment = document.getElementById("comment").value;
   const status = document.getElementById("status");
+
+  if (!comment.trim()) {
+    status.textContent = "コメントを入力してください";
+    return;
+  }
+
   status.textContent = "送信中…";
 
   try {
     const res = await fetch(GAS_URL, {
       method: "POST",
-      body: JSON.stringify({
-        title: "test",
-        name: "debug",
-        comment: "hello"
-      })
+      body: JSON.stringify({ title, name, comment })
     });
 
     const text = await res.text();
-    console.log("HTTP status:", res.status);
     console.log("Raw response:", text);
 
-    status.textContent = "通信成功（Console参照）";
+    const result = JSON.parse(text);
+
+    if (result.result === "ok") {
+      status.textContent = "投稿完了！";
+      document.getElementById("comment").value = "";
+      loadPosts();
+    } else {
+      status.textContent = "投稿失敗";
+    }
 
   } catch (e) {
     console.error("通信エラー詳細:", e);
